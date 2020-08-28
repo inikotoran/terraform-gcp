@@ -16,6 +16,6 @@ variable "credential" {
 
 variable "tpl_file" {
   description = "bash script executed at startup"
-  default = "unknown.tpl"
-  type    = string
+  default     = "unknown.tpl"
+  type        = string
 }

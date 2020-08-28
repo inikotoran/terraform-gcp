@@ -3,6 +3,8 @@ resource "google_compute_instance" "app" {
   machine_type = "f1-micro"
   tags         = ["http-server"]
 
+  depends_on = [google_compute_firewall.demo_network]
+
   boot_disk {
     initialize_params {
       image = "debian-cloud/debian-9"
@@ -10,7 +12,8 @@ resource "google_compute_instance" "app" {
   }
 
   network_interface {
-    network = "default"
+    network = google_compute_firewall.demo_network.network
+
     access_config {}
   }
 
@@ -19,4 +22,23 @@ resource "google_compute_instance" "app" {
 
 data "template_file" "startup" {
   template = file(var.tpl_file)
+}
+
+resource "google_compute_network" "demo_network" {
+  name                    = "demo-network"
+  auto_create_subnetworks = "true"
+}
+
+resource "google_compute_firewall" "demo_network" {
+  name    = "allow-ssh-and-icmp"
+  network = google_compute_network.demo_network.self_link
+
+  allow {
+    protocol = "icmp"
+  }
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22", "80"]
+  }
 }
