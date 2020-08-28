@@ -7,3 +7,4 @@ systemctl enable nginx
 systemctl restart nginx
 sudo su
 echo "Google Compute VM using Terraform" > /var/www/html/index.html
+systemctl restart nginx

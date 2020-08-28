@@ -18,7 +18,7 @@ provider "google" {
 module "vm" {
   source     = "../"
   project    = "high-fuze-767"
-  app_name   = "use-mod"
+  app_name   = "use-modules"
   credential = "../../credential.json"
   tpl_file   = "apache.tpl"
 }
