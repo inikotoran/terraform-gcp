@@ -25,7 +25,7 @@ data "template_file" "startup" {
 }
 
 resource "google_compute_network" "demo_network" {
-  name                    = "demo-network"
+  name                    = "${var.app_name}-network"
   auto_create_subnetworks = "true"
 }
 
